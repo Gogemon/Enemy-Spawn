@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemySpawnController : MonoBehaviour
 {
     [SerializeField] private Enemy[] _enemys;
-    [SerializeField] private List<EnemySpawner> _enemysSpawners;
     [SerializeField] private float _spawnColldown;
 
+    private List<EnemySpawner> _enemysSpawners;
     private float _spawnTimer;
     private Coroutine _enemysSpawn;
 
