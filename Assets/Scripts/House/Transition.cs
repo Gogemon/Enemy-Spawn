@@ -22,7 +22,7 @@ public class Transition : MonoBehaviour
 
         _secondDoor = _doorway.GetComponentsInChildren<Transition>().FirstOrDefault(transition => transition != this);
 
-        _isExit = this.CompareTag(ExitTag) ? true : false;
+        _isExit = this.CompareTag(ExitTag);
     }
 
     private void OnTriggerStay2D(Collider2D collision)

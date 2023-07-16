@@ -20,15 +20,7 @@ public class BackgroundCheinger : MonoBehaviour
 
     public void ChangeDarkenBackground()
     {
-        if (_isColorChenged)
-        {
-            _background.color = _currentColor;
-            _isColorChenged = false;
-        }
-        else
-        {
-            _background.color = _blackColor;
-            _isColorChenged = true;
-        }
+        _background.color = _isColorChenged ? _currentColor : _blackColor;
+        _isColorChenged = !_isColorChenged;
     }
 }

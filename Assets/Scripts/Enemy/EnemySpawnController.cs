@@ -7,7 +7,7 @@ public class EnemySpawnController : MonoBehaviour
     [SerializeField] private Enemy[] _enemys;
     [SerializeField] private float _spawnColldown;
 
-    private List<EnemySpawner> _enemysSpawners;
+    private List<EnemySpawner> _enemysSpawners = new List<EnemySpawner>();
     private float _spawnTimer;
     private Coroutine _enemysSpawn;
 
@@ -36,19 +36,11 @@ public class EnemySpawnController : MonoBehaviour
     {
         bool isRun = true;
 
-        _spawnTimer = 0;
-
         while (isRun)
         {
-            _spawnTimer -= Time.deltaTime;
+            _enemysSpawners[Random.Range(0, _enemysSpawners.Count)].SpawnEnemy(_enemys[Random.Range(0, _enemys.Length - 1)]);
 
-            if (_spawnTimer <= 0)
-            {
-                _spawnTimer = _spawnColldown;
-                _enemysSpawners[Random.Range(0, _enemysSpawners.Count)].SpawnEnemy(_enemys[Random.Range(0, _enemys.Length - 1)]);
-            }
-
-            yield return null;
+            yield return new WaitForSeconds(_spawnColldown);
         }
     }
 }
