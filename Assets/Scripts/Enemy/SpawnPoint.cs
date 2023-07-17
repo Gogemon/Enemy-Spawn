@@ -2,25 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawnController : MonoBehaviour
+public class SpawnPoint : MonoBehaviour
 {
     [SerializeField] private Enemy[] _enemys;
     [SerializeField] private float _spawnColldown;
 
-    private List<EnemySpawner> _enemysSpawners = new List<EnemySpawner>();
-    private float _spawnTimer;
-    private Coroutine _enemysSpawn;
+    private List<Spawner> _spawners = new List<Spawner>();
+    private Coroutine _spawn;
+    private WaitForSeconds _timer;
 
     private void Start()
     {
-        _enemysSpawners.AddRange(GetComponentsInChildren<EnemySpawner>());
+        _spawners.AddRange(GetComponentsInChildren<Spawner>());
+        _timer = new WaitForSeconds(_spawnColldown);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            _enemysSpawn = StartCoroutine(EnemysSpawn());
+            _spawn = StartCoroutine(EnemysSpawn());
         }
     }
 
@@ -28,7 +29,7 @@ public class EnemySpawnController : MonoBehaviour
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            StopCoroutine(_enemysSpawn);
+            StopCoroutine(_spawn);
         }
     }
 
@@ -38,9 +39,9 @@ public class EnemySpawnController : MonoBehaviour
 
         while (isRun)
         {
-            _enemysSpawners[Random.Range(0, _enemysSpawners.Count)].SpawnEnemy(_enemys[Random.Range(0, _enemys.Length - 1)]);
+            _spawners[Random.Range(0, _spawners.Count)].EnemySpawn(_enemys[Random.Range(0, _enemys.Length - 1)]);
 
-            yield return new WaitForSeconds(_spawnColldown);
+            yield return _timer;
         }
     }
 }

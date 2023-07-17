@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
-    public void SpawnEnemy(Enemy enemy)
+    public void EnemySpawn(Enemy enemy)
     {
         Instantiate(enemy, this.transform.position, Quaternion.identity);
     }
